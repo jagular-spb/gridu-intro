@@ -1,0 +1,8 @@
+---
+- name: "Add user {{user_name_to_add}}"
+  user:
+   name: "{{user_name_to_add}}"
+   shell: /bin/bash
+   groups: "google-sudoers"
+   append: yes
+ 

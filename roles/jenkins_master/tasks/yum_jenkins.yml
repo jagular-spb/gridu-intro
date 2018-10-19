@@ -1,0 +1,22 @@
+---
+
+- name: Add Jenkins repo
+  yum_repository:
+   baseurl: http://pkg.jenkins.io/redhat-stable
+   name: jenkins
+   state: present
+   owner: root
+   group: root
+   mode: u+rw,g+r,o+r
+   gpgcheck: yes
+   gpgkey: https://jenkins-ci.org/redhat/jenkins-ci.org.key
+   enabled: yes
+   ip_resolve: 4
+   description: Jenkins-stable
+   
+- name: Install Jenkins
+  yum:
+   state: present
+   name: jenkins
+   update_cache: yes
+

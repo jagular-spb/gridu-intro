@@ -1,0 +1,10 @@
+---
+#- name: add user
+#  import_tasks: add_user.yml
+#- name: configure ssh
+#  import_tasks: configure_ssh.yml
+
+- name: install basics
+  import_tasks: basic_tools.yml
+  
+

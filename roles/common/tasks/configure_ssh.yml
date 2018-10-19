@@ -1,0 +1,17 @@
+---
+- name: Make .ssh dir
+  file:
+   state: directory
+   mode: u=rwx,g=rx,o=rx
+   group: "{{user_name_to_add}}"
+   owner: "{{user_name_to_add}}"
+   path: "/home/{{user_name_to_add}}/.ssh"
+
+- name: Copy pub key
+  copy:
+   src: "id_{{user_name_to_add}}.pub"
+   dest: "/home/{{user_name_to_add}}/.ssh/authorized_keys"
+   mode: u+rw,g-rwx,o-rwx
+   group: "{{user_name_to_add}}"
+   owner: "{{user_name_to_add}}"
+

@@ -1,0 +1,10 @@
+---
+ssh_key_pwd: "{{ vault_ssh_key_pwd }}"
+ssh_key: ""
+dep_version: 0.1
+user_name_to_add: alice
+maven_settings_file:
+maven_secure_file: "<settingsSecurity><master>{{ vault_maven_secure_file }}</master></settingsSecurity>"
+java_home: "/usr/lib/jvm/default-java/"
+mvn_repo_url: "https://github.com/jagular-spb/gridu-mvn.git"
+mvn_repo_branch: "nexus"

@@ -1,0 +1,6 @@
+---
+- name: yum jenkins
+  import_tasks: yum_jenkins.yml
+  
+- name: firewalld jenkins
+  import_tasks: fw_jenkins.yml  

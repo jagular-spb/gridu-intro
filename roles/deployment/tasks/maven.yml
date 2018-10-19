@@ -1,0 +1,45 @@
+---
+    - name: Install maven
+      apt:
+       state: present
+       name: maven
+       update_cache: yes
+
+    - name: Install jdk for sure
+      apt:
+       state: present
+       name: openjdk-8-jdk
+       update_cache: yes
+       
+    - name: Configure JAVA
+      lineinfile:
+       path: /etc/environment
+       line: "JAVA_HOME={{java_home}}"
+       state: present
+       
+    - name: Create .m2
+      file:
+       state: directory
+       owner: "{{user_name_to_add}}"
+       group: "{{user_name_to_add}}"
+       path: "/home/{{user_name_to_add}}/.m2"
+       mode: u+rxw,g+xr,o-rwx
+       
+    - name: Configure mvn settings
+      copy:
+       src: mvn_settings.xml
+       dest: "/home/{{user_name_to_add}}/.m2/settings.xml"
+       owner: "{{user_name_to_add}}"
+       group: "{{user_name_to_add}}"
+       mode: u+rw,g+r,o-rwx
+
+    - name: Configure mvn secure
+      copy:
+       content: "{{maven_secure_file}}"
+       dest: "/home/{{user_name_to_add}}/.m2/settings-security.xml"
+       owner: "{{user_name_to_add}}"
+       group: "{{user_name_to_add}}"
+       mode: u+rw,g-rwx,o-rwx
+
+
+

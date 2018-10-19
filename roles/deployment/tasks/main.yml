@@ -1,0 +1,7 @@
+---
+- name: install git
+  import_tasks: git.yml
+
+- name: install maven
+  import_tasks: maven.yml
+
