@@ -8,7 +8,9 @@ jenkins_plugins:
   enabled: yes
  build-pipeline-plugin:
   enabled: yes
-
+ timestamper:
+  enabled: yes
+ 
 #
 vault_jenkins_password: !vault |
           $ANSIBLE_VAULT;1.1;AES256
