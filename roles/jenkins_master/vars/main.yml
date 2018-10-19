@@ -1,7 +1,7 @@
 ---
 jenkins_url_username: ansible
 jenkins_url_password: "{{vault_jenkins_password}}"
-jenkins_url: http://localhost:8080
+jenkins_url: localhost:8080
 
 jenkins_plugins:
  token-macro:
