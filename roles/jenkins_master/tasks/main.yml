@@ -4,3 +4,6 @@
   
 - name: firewalld jenkins
   import_tasks: fw_jenkins.yml  
+  
+- name: plugin jenkins
+  import_tasks: plugins_jenkins.yml    

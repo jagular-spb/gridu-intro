@@ -1,0 +1,12 @@
+---
+    - name: Install plugins without a specific version
+      jenkins_plugin:
+       url: "{{jenkins_url}}"
+       url_password: "{{vault_jenkins_password}}"
+       url_username: "{{jenkins_url_username}}"
+       name: "{{ item.key }}"
+      register: jenkins_plugin_unversioned
+      when: >
+        'version' not in item.value
+      with_dict: "{{ jenkins_plugins }}"
+#      delegate_to: "{{delegate}}"
