@@ -1,5 +1,5 @@
 ---
-- name: firewalld jenkins
+- name: Firewalld Jenkins
   firewalld:
    port: 8080/tcp
    permanent: true
