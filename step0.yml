@@ -82,6 +82,16 @@
   - common
   - jenkins_master
 
+
+- name: Configure Gerrit
+  hosts: ef-rel-gerrit0
+  become: yes
+  become_method: sudo
+  gather_facts: no  
+  roles:
+  - common
+  - gerrit
+
 - name: Play with inmemory-inventory
   hosts: deploy
   become: yes

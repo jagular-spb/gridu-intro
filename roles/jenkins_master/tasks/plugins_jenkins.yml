@@ -9,7 +9,6 @@
       when: >
         'version' not in item.value
       with_dict: "{{ jenkins_plugins }}"
-#      delegate_to: "{{delegate}}"
 
     - name: Initiate the fact
       set_fact:
@@ -27,7 +26,7 @@
         state: restarted
       when: jenkins_restart_required
 
-    - name: Get Jenkins Crumb
+    - name: Wait for Jenkins - Get Jenkins Crumb
       uri:
        url: 'http://{{jenkins_url}}/crumbIssuer/api/xml?xpath=concat(//crumbRequestField,":",//crumb)'
        user: "{{jenkins_url_username}}"
@@ -36,7 +35,6 @@
        return_content: yes
        status_code: 200
        timeout: 5
-#      register: jenkins_service_status
       # Keep trying for 5 mins in 5 sec intervals
       retries: 60
       delay: 5
@@ -46,11 +44,10 @@
       register: crumb
       when: jenkins_restart_required
 
-    - name: Wait for Jenkins to start up
+    - name: Wait for Jenkins - Auth Ok?
       uri:
         password: "{{jenkins_url_password}}"
         user: "{{jenkins_url_username}}"
-#        url: "http://{{jenkins_url_username}}:{{vault_jenkins_password}}@{{jenkins_url}}/api/json"
         url: "http://{{jenkins_url}}/api/json"
         force_basic_auth: yes
         method: POST
