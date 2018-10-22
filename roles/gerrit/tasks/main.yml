@@ -1,7 +1,10 @@
 ---
 
-- name: yum gerrit
-  import_tasks: yum_gerrit.yml
+- name: gerrit firewalld
+  import_tasks: gerrit_fw.yml
+
+- name: gerrit yum
+  import_tasks: gerrit_yum.yml
 
 - name: gerrit oauth
   import_tasks: gerrit_oauth.yml
