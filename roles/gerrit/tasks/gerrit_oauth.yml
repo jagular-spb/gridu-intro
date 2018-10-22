@@ -1,0 +1,21 @@
+---
+   
+#- name: Git gerrit-oauth-providerh
+#  become: yes
+#  become_user: gerrit
+#  git:
+#   repo: "https://github.com/davido/gerrit-oauth-provider.git"
+##   repo: "https://gerrit.googlesource.com/plugins/oauth"
+#   dest: /var/gerrit/plugins
+#   version: "v2.14.6.2"
+#   clone: yes
+#   update: yes
+
+- name: Get gerrit-oauth-providerh v2.14.6.2
+  get_url:
+   url: "https://github.com/davido/gerrit-oauth-provider/releases/download/v2.14.6.2/gerrit-oauth-provider.jar"
+   dest: /var/gerrit/plugins/gerrit-oauth-provider.jar
+   mode: ug+r,o-rwx
+   owner: gerrit
+   group: gerrit
+   checksum: "sha256:11c684068693cdf37ca6bf183bbe4f1c19cea00db5cd2f7954265cdccddcddf9"

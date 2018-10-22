@@ -10,8 +10,9 @@
   tasks:
   
     - name: create gerrit & nexus
+      tags: config
       gce:
-        instance_names: ef-rel-nexus0,ef-rel-gerrit0
+        instance_names: ef-rel-nexus0
         zone: "{{ egcp_zone }}"
         machine_type: f1-micro
         image: centos-7-v20181011
@@ -24,8 +25,9 @@
 #      register: gce_rel
 
     - name: create jenkins-master
+      tags: config
       gce:
-        instance_names: ef-rel-jenkins0
+        instance_names: ef-rel-jenkins0,ef-rel-gerrit0
         zone: "{{ egcp_zone }}"
         machine_type: g1-small
         image: centos-7-v20181011
@@ -39,6 +41,7 @@
 
   
     - name: collect active instances
+      tags: all
       gce:
         instance_names: "{{ ef_release_instances }}"
         zone: "{{ egcp_zone }}"
@@ -50,6 +53,7 @@
       register: gce_rel
 
     - name: Save host data
+      tags: all
       add_host:
         hostname: "{{ item.name }}"
         ansible_ssh_host: "{{ item.public_ip }}"
@@ -60,6 +64,7 @@
       with_items: "{{ gce_rel.instance_data }}"
   
     - name: Create FW Rule
+      tags: config
       gce_net:
        credentials_file: "{{ credentials_file }}"      
        service_account_email: "{{ service_account_email }}"
@@ -74,6 +79,7 @@
 
 ##
 - name: Configure Jenkins
+  tags: jenkins
   hosts: ef-rel-jenkins0
   become: yes
   become_method: sudo
@@ -84,6 +90,7 @@
 
 
 - name: Configure Gerrit
+  tags: gerrit
   hosts: ef-rel-gerrit0
   become: yes
   become_method: sudo

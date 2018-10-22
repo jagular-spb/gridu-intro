@@ -1,0 +1,21 @@
+---
+- name: Configure gerrit
+  become: yes
+  become_user: gerrit
+  shell: >
+   "java -jar ~/bin/gerrit*.war init --no-auto-start --batch -d ~/ && 
+   git config --file ~/etc/gerrit.config  httpd.listenUrl http://git.7579433.ru:8080 && 
+   git config --file ~/etc/gerrit.config  gerrit.canonicalweburl http://git.7579433.ru:8080 && 
+   git config --file ~/etc/gerrit.config  auth.type OAUTH && 
+   git config --file ~/etc/gerrit.config  auth.gitBasicAuthPolicy HTTP && 
+   git config --file ~/etc/gerrit.config  plugin.gerrit-oauth-provider-github-oauth.client-id  84ca2177d535e3b8a257 && 
+   git config --file ~/etc/gerrit.config  plugin.gerrit-oauth-provider-github-oauth.client-secret 2242f01eddc62a2ea57d7eb954dd3997c862a472 && 
+   git config --file ~/etc/gerrit.config  plugin.gerrit-oauth-provider-github-oauth.fix-legacy-user-id true"
+   executable: /bin/bash
+
+
+- name: Run Gerrit
+  service:
+   name: gerrit
+   enabled: yes
+   state: started

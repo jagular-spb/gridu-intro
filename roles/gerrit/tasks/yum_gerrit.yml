@@ -1,28 +1,27 @@
 ---
 
-- name: Add Jenkins repo
+- name: Add Gerrit repo
   yum_repository:
-   baseurl: http://yum.gerritforge.com
-   name: gerrit
+   mirrorlist: http://mirrorlist.gerritforge.com/yum
+   name: gerritforge
    state: present
    owner: root
    group: root
    mode: u+rw,g+r,o+r
-   gpgcheck: no
+   gpgcheck: yes
 #   gpgkey: https://jenkins-ci.org/redhat/jenkins-ci.org.key
    enabled: yes
    ip_resolve: 4
-   description: Gerrit-forge-repo
+   description: GerritForge repository for Gerrit Code Review
    
 - name: Install Gerrit
   yum:
    state: present
-   name: gerrit
-   update_cache: yes
+   name: gerrit-2.14.6-1.noarch
+   update_cache: no
 
-- name: Run Gerrit
+- name: Enable Gerrit
   service:
    name: gerrit
    enabled: yes
-   state: started
-
+   state: stopped
