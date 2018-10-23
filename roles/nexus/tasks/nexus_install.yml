@@ -1,0 +1,17 @@
+---
+
+- name: Nexus Dload
+  get_url:
+   url: "{{nexus_dl_url}}"
+   dest: /tmp/
+   checksum : "{{nexus_dl_sha}}"
+   mode: ugo+r
+  register: nexus_dl
+
+- name: Nexus Anarhive
+  unarchive:
+   src: "{{ nexus_dl.dest  }}"
+   remote_src: yes
+   dest: "/opt/nexus/"
+   creates: "/opt/nexus/"
+  when: nexus_dl.state == 'file'

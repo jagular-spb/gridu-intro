@@ -99,6 +99,16 @@
   - common
   - gerrit
 
+- name: Configure Nexus
+  tags: jenkins
+  hosts: ef-rel-nexus0
+  become: yes
+  become_method: sudo
+  gather_facts: no  
+  roles:
+  - common
+  - nexus
+
 - name: Play with inmemory-inventory
   hosts: deploy
   become: yes

@@ -10,7 +10,7 @@
    mode: u+rw,g+r,o+r
    gpgcheck: yes
 #   gpgkey: https://jenkins-ci.org/redhat/jenkins-ci.org.key
-   enabled: yes
+   enabled: no
    ip_resolve: 4
    description: GerritForge repository for Gerrit Code Review
    
@@ -19,6 +19,7 @@
    state: present
    name: gerrit-2.14.6-1.noarch
    update_cache: no
+   enablerepo: gerritforge
 
 #- name: Enable Gerrit
 #  service:

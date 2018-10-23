@@ -9,7 +9,7 @@
 - name: Init gerrit 
   become: yes
   become_user: gerrit
-  shell: "java -jar ~/bin/gerrit*.war init --no-auto-start --batch -d ~/"
+  shell: "java -jar ~/bin/gerrit.war init --no-auto-start --batch -d ~/"
   args:
     executable: /bin/bash
 
@@ -24,6 +24,7 @@
    git config --file /var/gerrit/etc/gerrit.config  plugin.gerrit-oauth-provider-github-oauth.client-id {{ gerrit_id }}
    git config --file /var/gerrit/etc/gerrit.config  plugin.gerrit-oauth-provider-github-oauth.client-secret {{ vault_gerrit_secret }}
    git config --file /var/gerrit/etc/gerrit.config  plugin.gerrit-oauth-provider-github-oauth.fix-legacy-user-id true
+   git config --file /var/gerrit/etc/gerrit.config  container.javaHome /etc/alternatives/jre_openjdk/
   args:
     executable: /bin/bash
 
