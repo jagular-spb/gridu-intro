@@ -1,15 +1,15 @@
 ---
 
-- name: Stop Gerrit
-  service:
-   name: gerrit
-   enabled: yes
-   state: stopped
+#- name: Stop Gerrit
+#  service:
+#   name: gerrit
+#   enabled: yes
+#   state: stopped
    
 - name: Init gerrit 
   become: yes
   become_user: gerrit
-  shell: "java -jar ~/bin/gerrit.war init --no-auto-start --batch -d ~/"
+  shell: "java -jar ~/bin/gerrit.war init --no-auto-start --install-all-plugins --batch -d ~/"
   args:
     executable: /bin/bash
 
@@ -28,8 +28,8 @@
   args:
     executable: /bin/bash
 
-- name: Run Gerrit
-  service:
-   name: gerrit
-   enabled: yes
-   state: started
+#- name: Run Gerrit
+#  service:
+#   name: gerrit
+#   enabled: yes
+#   state: started

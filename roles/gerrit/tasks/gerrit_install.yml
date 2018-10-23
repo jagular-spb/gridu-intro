@@ -1,0 +1,37 @@
+---
+
+- name: "Add user gerrit"
+  user:
+   name: gerrit
+   shell: /bin/bash
+   home: /var/gerrit
+   state: present
+
+- name: Gerrit Dir
+  file:
+   dest: /var/gerrit/bin
+   owner: gerrit
+   group: gerrit
+   mode:  ug+rx,o-rwx
+   state: directory
+
+- name: Gerrit Dload
+  get_url:
+   url: "{{gerrit_dl_url}}"
+   dest: /tmp/
+   checksum : "{{gerrit_dl_sha}}"
+   mode: ugo+r
+   owner: gerrit
+   group: gerrit
+  register: gerrit_dl
+
+   
+- name: Gerrit Copy to bin
+  copy:
+   src: "{{ gerrit_dl.dest  }}"
+   remote_src: yes
+   dest: /var/gerrit//bin/gerrit.war
+   mode: u+rx,go-rwx
+   owner: gerrit
+   group: gerrit
+  when: gerrit_dl.state == 'file'

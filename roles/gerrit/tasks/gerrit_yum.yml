@@ -26,3 +26,6 @@
 #   name: gerrit
 #   enabled: yes
 #   state: stopped
+
+
+https://gerrit-releases.storage.googleapis.com/gerrit-2.14.6.war

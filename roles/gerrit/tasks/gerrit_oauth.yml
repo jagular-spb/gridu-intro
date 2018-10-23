@@ -11,7 +11,15 @@
 #   clone: yes
 #   update: yes
 
-- name: Get gerrit-oauth-providerh v2.14.6.2
+- name: Gerrit Plugins Dir
+  file:
+   dest: /var/gerrit/plugins
+   owner: gerrit
+   group: gerrit
+   mode:  ug+rx,o-rwx
+   state: directory
+
+- name: Get gerrit-oauth-provider v2.14.6.2
   get_url:
    url: "https://github.com/davido/gerrit-oauth-provider/releases/download/v2.14.6.2/gerrit-oauth-provider.jar"
    dest: /var/gerrit/plugins/gerrit-oauth-provider.jar

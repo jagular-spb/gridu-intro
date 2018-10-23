@@ -1,4 +1,6 @@
 ---
+gerrit_dl_url: https://gerrit-releases.storage.googleapis.com/gerrit-2.14.6.war
+gerrit_dl_sha: "sha1:36f2bab06a0f96c552bcf285f94d71d6eac9220e"
 
 gerrit_id: 84ca2177d535e3b8a257
 #          

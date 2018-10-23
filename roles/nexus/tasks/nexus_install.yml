@@ -1,5 +1,20 @@
 ---
 
+- name: "Add user nexus"
+  user:
+   name: gerrit
+   shell: /bin/bash
+   home: /opt/nexus
+   state: present
+
+#- name: Gerrit Dir
+#  file:
+#   dest: /var/gerrit/bin
+#   owner: gerrit
+#   group: gerrit
+#   mode:  ug+rx,o-rwx
+#   state: directory
+   
 - name: Nexus Dload
   get_url:
    url: "{{nexus_dl_url}}"
