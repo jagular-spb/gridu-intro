@@ -2,7 +2,7 @@
 
 - name: "Add user nexus"
   user:
-   name: gerrit
+   name: nexus
    shell: /bin/bash
    home: /opt/nexus
    state: present
@@ -28,5 +28,6 @@
    src: "{{ nexus_dl.dest  }}"
    remote_src: yes
    dest: "/opt/nexus/"
-   creates: "/opt/nexus/"
+   owner: nexus
+   group: nexus
   when: nexus_dl.state == 'file'

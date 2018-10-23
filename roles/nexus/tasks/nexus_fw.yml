@@ -1,0 +1,8 @@
+---
+- name: Nexus Firewalld
+  firewalld:
+   port: 8081/tcp
+   permanent: true
+   immediate: yes
+   state: enabled
+

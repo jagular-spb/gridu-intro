@@ -1,3 +1,9 @@
 ---
 - name: nexus install
   import_tasks: nexus_install.yml
+
+- name: nexus firewalld
+  import_tasks: nexus_fw.yml
+
+- name: nexus systemd
+  import_tasks: nexus_systemd.yml

@@ -9,12 +9,12 @@
     
   tasks:
   
-    - name: create gerrit & nexus
+    - name: create nexus
       tags: config
       gce:
         instance_names: ef-rel-nexus0
         zone: "{{ egcp_zone }}"
-        machine_type: f1-micro
+        machine_type: g1-small
         image: centos-7-v20181011
         state: present
         service_account_email: "{{ service_account_email }}"
@@ -27,7 +27,7 @@
     - name: create jenkins-master
       tags: config
       gce:
-        instance_names: ef-rel-jenkins0,ef-rel-gerrit0
+        instance_names: ef-rel-jenkins0
         zone: "{{ egcp_zone }}"
         machine_type: g1-small
         image: centos-7-v20181011
@@ -38,6 +38,22 @@
         tags: web-808x
         metadata : '{ "startup-script":"yum -y update", "sshKeys":"jagular_spb:ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCiyEXyO9R5SUQIRq6tCge5rLitw+LdJME8FLsmd6vtcKxGs4i5bI/SgLIEjs04ZZ4aKApGYrIotShEtUcC5trBjNqoAuzyKGHitt8YYz4KG61FBIQMpoM3McqNIr0xqfk+UR7SN5Lj+YiOtxIVxOMDFaOD7mMjS+4YNmzLzr06TmQsXJbIZrTZVN5xaeg2lYSWRspZq3cZX9a4OtY+FcCDxj27WrCfebZQYawE5RYcrM6Bp9GwjoXF7gkEFJp54EZ08yFnk+1ZbPasn2h5Lx7T53iG5v3i0Cpn4BSkvAkoSe7yYm0gs/fGNILtpT/9RDqhs/RBCeaMsqlySfQud/MJ jagular_spb"}'
 #      register: gce_rel
+
+    - name: create gerrit
+      tags: config
+      gce:
+        instance_names: ef-rel-gerrit0
+        zone: "{{ egcp_zone }}"
+        machine_type: g1-small
+        image: centos-7-v20181011
+        state: present
+        service_account_email: "{{ service_account_email }}"
+        credentials_file: "{{ credentials_file }}"
+        project_id: "{{ project_id }}"
+        tags: web-808x
+        metadata : '{ "startup-script":"yum -y update", "sshKeys":"jagular_spb:ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCiyEXyO9R5SUQIRq6tCge5rLitw+LdJME8FLsmd6vtcKxGs4i5bI/SgLIEjs04ZZ4aKApGYrIotShEtUcC5trBjNqoAuzyKGHitt8YYz4KG61FBIQMpoM3McqNIr0xqfk+UR7SN5Lj+YiOtxIVxOMDFaOD7mMjS+4YNmzLzr06TmQsXJbIZrTZVN5xaeg2lYSWRspZq3cZX9a4OtY+FcCDxj27WrCfebZQYawE5RYcrM6Bp9GwjoXF7gkEFJp54EZ08yFnk+1ZbPasn2h5Lx7T53iG5v3i0Cpn4BSkvAkoSe7yYm0gs/fGNILtpT/9RDqhs/RBCeaMsqlySfQud/MJ jagular_spb"}'
+#      register: gce_rel
+
 
   
     - name: collect active instances
