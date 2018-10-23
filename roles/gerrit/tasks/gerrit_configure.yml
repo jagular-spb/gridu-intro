@@ -1,4 +1,11 @@
 ---
+
+- name: Stop Gerrit
+  service:
+   name: gerrit
+   enabled: yes
+   state: stopped
+   
 - name: Init gerrit 
   become: yes
   become_user: gerrit
@@ -10,17 +17,16 @@
   become: yes
   become_user: gerrit
   shell: |
-   git config --file /var/gerrit/etc/gerrit.config  httpd.listenUrl http://git.7579433.ru:8080 
+   git config --file /var/gerrit/etc/gerrit.config  httpd.listenUrl http://*:8080 
    git config --file /var/gerrit/etc/gerrit.config  gerrit.canonicalweburl http://git.7579433.ru:8080
-   git config --file /var/gerrit/etc/gerrit.config  auth.type OAUTH &&
+   git config --file /var/gerrit/etc/gerrit.config  auth.type OAUTH 
    git config --file /var/gerrit/etc/gerrit.config  auth.gitBasicAuthPolicy HTTP
    git config --file /var/gerrit/etc/gerrit.config  plugin.gerrit-oauth-provider-github-oauth.client-id {{ gerrit_id }}
    git config --file /var/gerrit/etc/gerrit.config  plugin.gerrit-oauth-provider-github-oauth.client-secret {{ vault_gerrit_secret }}
    git config --file /var/gerrit/etc/gerrit.config  plugin.gerrit-oauth-provider-github-oauth.fix-legacy-user-id true
   args:
     executable: /bin/bash
-   
-   
+
 - name: Run Gerrit
   service:
    name: gerrit

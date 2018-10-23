@@ -20,8 +20,8 @@
    name: gerrit-2.14.6-1.noarch
    update_cache: no
 
-- name: Enable Gerrit
-  service:
-   name: gerrit
-   enabled: yes
-   state: stopped
+#- name: Enable Gerrit
+#  service:
+#   name: gerrit
+#   enabled: yes
+#   state: stopped
