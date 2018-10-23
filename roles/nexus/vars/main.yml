@@ -1,3 +1,4 @@
 ---
-nexus_dl_url: http://download.sonatype.com/nexus/3/nexus-3.14.0-04-unix.tar.gz
+nexus_ver: nexus-3.14.0-04
+nexus_dl_url: "http://download.sonatype.com/nexus/3/{{nexus_ver}}-unix.tar.gz"
 nexus_dl_sha: "sha1:7e577cfd3c72bac488913d19dfad39e90019490f"

@@ -9,8 +9,13 @@
 - name: gerrit oauth
   import_tasks: gerrit_oauth.yml
 
+
+- name: gerrit systemd
+  import_tasks: gerrit_systemd.yml
+
 - name: gerrit configure
   import_tasks: gerrit_configure.yml
+
 
 #- name: firewalld jenkins
 #  import_tasks: fw_jenkins.yml  

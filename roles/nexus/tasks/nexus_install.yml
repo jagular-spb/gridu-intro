@@ -6,6 +6,7 @@
    shell: /bin/bash
    home: /opt/nexus
    state: present
+   create_home: no
 
 #- name: Gerrit Dir
 #  file:
@@ -25,9 +26,16 @@
 
 - name: Nexus Anarhive
   unarchive:
-   src: "{{ nexus_dl.dest  }}"
+   src: "{{nexus_dl.dest}}"
    remote_src: yes
-   dest: "/opt/nexus/"
+   dest: "/opt/"
    owner: nexus
    group: nexus
   when: nexus_dl.state == 'file'
+
+- name: Nexus symlinc
+  file:
+   state: link
+   src: "/opt/{{nexus_ver}}"
+   dest: "/opt/nexus"
+   

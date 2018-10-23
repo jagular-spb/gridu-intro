@@ -1,10 +1,10 @@
 ---
 
-#- name: Stop Gerrit
-#  service:
-#   name: gerrit
-#   enabled: yes
-#   state: stopped
+- name: Stop Gerrit
+  service:
+   name: gerrit
+   enabled: yes
+   state: stopped
    
 - name: Init gerrit 
   become: yes
@@ -28,8 +28,8 @@
   args:
     executable: /bin/bash
 
-#- name: Run Gerrit
-#  service:
-#   name: gerrit
-#   enabled: yes
-#   state: started
+- name: Run Gerrit
+  service:
+   name: gerrit
+   enabled: yes
+   state: started
