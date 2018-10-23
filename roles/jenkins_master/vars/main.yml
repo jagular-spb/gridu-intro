@@ -9,7 +9,13 @@ jenkins_plugins:
  build-pipeline-plugin:
   enabled: yes
  timestamper:
-  enabled: yes
+  enabled: yes 
+ gerrit-code-review:
+    enabled: yes
+ nexus-jenkins-plugin:
+    enabled: yes
+ maven-artifact-choicelistprovider:
+    enabled: yes
  
 #
 vault_jenkins_password: !vault |

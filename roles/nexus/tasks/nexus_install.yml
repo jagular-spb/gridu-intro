@@ -22,6 +22,8 @@
    dest: /tmp/
    checksum : "{{nexus_dl_sha}}"
    mode: ugo+r
+   owner: nexus
+   group: nexus   
   register: nexus_dl
 
 - name: Nexus Anarhive
@@ -38,4 +40,21 @@
    state: link
    src: "/opt/{{nexus_ver}}"
    dest: "/opt/nexus"
+   owner: nexus
+   group: nexus
+
+- name: Nexus chown 0
+  file:
+   state: directory
+   path: "/opt/sonatype-work"
+   owner: nexus
+   group: nexus
+   recurse: yes
    
+- name: Nexus chown 1
+  file:
+   state: directory
+   path: "/opt/nexus"
+   owner: nexus
+   group: nexus
+   recurse: yes   

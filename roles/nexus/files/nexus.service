@@ -4,8 +4,8 @@ After=network.target
   
 [Service]
 Type=forking
-ExecStart=/opt/nexus/nexus/bin/nexus start
-ExecStop=/opt/nexus/nexus/bin/nexus stop
+ExecStart=/opt/nexus/bin/nexus start
+ExecStop=/opt/nexus/bin/nexus stop
 User=nexus
 Restart=on-abort
   
