@@ -20,7 +20,8 @@
         credentials_file: "{{ credentials_file }}"
         project_id: "{{ project_id }}"
         tags: web-docker
-        metadata : '{ "startup-script":"yum -y update", "sshKeys":"jagular_spb:ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCiyEXyO9R5SUQIRq6tCge5rLitw+LdJME8FLsmd6vtcKxGs4i5bI/SgLIEjs04ZZ4aKApGYrIotShEtUcC5trBjNqoAuzyKGHitt8YYz4KG61FBIQMpoM3McqNIr0xqfk+UR7SN5Lj+YiOtxIVxOMDFaOD7mMjS+4YNmzLzr06TmQsXJbIZrTZVN5xaeg2lYSWRspZq3cZX9a4OtY+FcCDxj27WrCfebZQYawE5RYcrM6Bp9GwjoXF7gkEFJp54EZ08yFnk+1ZbPasn2h5Lx7T53iG5v3i0Cpn4BSkvAkoSe7yYm0gs/fGNILtpT/9RDqhs/RBCeaMsqlySfQud/MJ jagular_spb"}'
+        metadata : '{ "sshKeys":"{{gce_sshKeys}}"}'
+      register: gce_docker
   
     - name: collect active instances
       tags: all
@@ -58,6 +59,13 @@
 #       target_tags: web-docker
 
 ##
+    - name: Throttle
+      wait_for_connection:
+       delay: 60
+       sleep: 5
+       timeout: 300
+      when: gce_docker.changed
+  
 - name: Configure Docker
   tags: build
   hosts: ef-build-docker0,ef-build-docker1

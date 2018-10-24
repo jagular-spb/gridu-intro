@@ -3,8 +3,12 @@
 - name: Docker configure daemon 
   lineinfile:
    path: /etc/docker/daemon.json
-   insertafter: "{"
-   line: '"insecure-registries" : [ "nexus.7579433.ru:5000" ]'
+   regexp: '^{}'
+   line: |
+    {
+    "insecure-registries" : [ "nexus.7579433.ru:5000" ]
+    }
+    
   register: configure
    
 - name: Docker run
