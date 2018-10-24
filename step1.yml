@@ -1,10 +1,6 @@
 - name: Compute Engine Instance Examples
   hosts: localhost
   vars:
-    service_account_email: "terraform@ef-tf-admin.iam.gserviceaccount.com"
-    credentials_file: "/Users/efisher/.config/gcloud/efisher-terraform-admin.json"
-    project_id: "ef-tf-compute"
-    egcp_zone: europe-north1-a
     ef_build_instances: ef-build-docker0,ef-build-docker1
     
   tasks:
@@ -22,7 +18,14 @@
         tags: web-docker
         metadata : '{ "sshKeys":"{{gce_sshKeys}}"}'
       register: gce_docker
-  
+
+    - name: Throttle
+      wait_for_connection:
+       delay: 60
+       sleep: 5
+       timeout: 300
+      when: gce_docker.changed
+
     - name: collect active instances
       tags: all
       gce:
@@ -54,17 +57,11 @@
 #       project_id: "{{ project_id }}"
 #       name: default
 #       fwname: firewall1
-#       allowed: tcp:8080,8081
+#       allowed: tcp:2376
 #       state: present
 #       target_tags: web-docker
 
 ##
-    - name: Throttle
-      wait_for_connection:
-       delay: 60
-       sleep: 5
-       timeout: 300
-      when: gce_docker.changed
   
 - name: Configure Docker
   tags: build

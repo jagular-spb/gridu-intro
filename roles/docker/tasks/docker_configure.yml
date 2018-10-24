@@ -1,16 +1,11 @@
 ---
    
 - name: Docker configure daemon 
-  lineinfile:
-   path: /etc/docker/daemon.json
-   regexp: '^{}'
-   line: |
-    {
-    "insecure-registries" : [ "nexus.7579433.ru:5000" ]
-    }
-    
+  copy:
+   src: docker_daemon.json
+   dest: /etc/docker/daemon.json
   register: configure
-   
+
 - name: Docker run
   service:
    name: docker

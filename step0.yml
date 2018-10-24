@@ -1,10 +1,6 @@
 - name: Compute Engine Instance Examples
   hosts: localhost
   vars:
-    service_account_email: "terraform@ef-tf-admin.iam.gserviceaccount.com"
-    credentials_file: "/Users/efisher/.config/gcloud/efisher-terraform-admin.json"
-    project_id: "ef-tf-compute"
-    egcp_zone: europe-north1-a
     ef_release_instances: ef-rel-jenkins0,ef-rel-nexus0,ef-rel-gerrit0
     
   tasks:
