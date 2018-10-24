@@ -3,7 +3,7 @@
       apt:
        state: present
        name: apache2
-       update_cache: yes
+       update_cache: no
 
     - name: Run apache
       service:

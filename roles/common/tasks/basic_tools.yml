@@ -3,19 +3,19 @@
       yum:
        state: present
        name: git
-       update_cache: yes
+       update_cache: no
 
     - name: Install wget
       yum:
        state: present
        name: wget
-       update_cache: yes
+       update_cache: no
 
     - name: Install jdk
       yum:
        state: present
        name: java-1.8.0-openjdk
-       update_cache: yes
+       update_cache: no
 
     - name: set $JAVA_HOME
       copy:

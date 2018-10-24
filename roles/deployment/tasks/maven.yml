@@ -3,13 +3,13 @@
       apt:
        state: present
        name: maven
-       update_cache: yes
+       update_cache: no
 
     - name: Install jdk for sure
       apt:
        state: present
        name: openjdk-8-jdk
-       update_cache: yes
+       update_cache: no
        
     - name: Configure JAVA
       lineinfile:

@@ -18,7 +18,7 @@
   yum:
    state: present
    name: jenkins
-   update_cache: yes
+   update_cache: no
 
 - name: Run Jenkins
   service:

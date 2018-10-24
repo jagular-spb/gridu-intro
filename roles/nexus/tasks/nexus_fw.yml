@@ -6,3 +6,11 @@
    immediate: yes
    state: enabled
 
+
+- name: Nexus Registry Firewalld 
+  firewalld:
+   port: 5000/tcp
+   permanent: true
+   immediate: yes
+   state: enabled
+
