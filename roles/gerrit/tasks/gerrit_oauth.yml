@@ -27,3 +27,13 @@
    owner: gerrit
    group: gerrit
    checksum: "sha256:11c684068693cdf37ca6bf183bbe4f1c19cea00db5cd2f7954265cdccddcddf9"
+
+
+- name: Get serviceuser
+  get_url:
+   url: "https://gerrit-ci.gerritforge.com/view/Plugins-stable-2.14/job/plugin-serviceuser-bazel-stable-2.14/lastSuccessfulBuild/artifact/bazel-genfiles/plugins/serviceuser/serviceuser.jar"
+   dest: /var/gerrit/plugins/serviceuser.jar
+   mode: ug+r,o-rwx
+   owner: gerrit
+   group: gerrit
+   checksum: "sha1:0090e220f07a3f3262304b331fc3bb6e91f5f035"

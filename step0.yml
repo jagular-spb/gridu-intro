@@ -104,7 +104,6 @@
   - common
   - jenkins_master
 
-
 - name: Configure Gerrit
   tags: gerrit
   hosts: ef-rel-gerrit0

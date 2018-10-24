@@ -1,0 +1,15 @@
+---
+   
+- name: Docker configure daemon 
+  lineinfile:
+   path: /etc/docker/daemon.json
+   insertafter: "{"
+   line: '"insecure-registries" : [ "nexus.7579433.ru:5000" ]'
+  register: config_changed
+   
+- name: Docker run
+  service:
+   name: docker
+   enabled: yes
+   state: started
+  when: config_changed.status == "changed"

@@ -1,0 +1,69 @@
+- name: Compute Engine Instance Examples
+  hosts: localhost
+  vars:
+    service_account_email: "terraform@ef-tf-admin.iam.gserviceaccount.com"
+    credentials_file: "/Users/efisher/.config/gcloud/efisher-terraform-admin.json"
+    project_id: "ef-tf-compute"
+    egcp_zone: europe-north1-a
+    ef_build_instances: ef-build-docker0,ef-build-docker1
+    
+  tasks:
+    - name: create gerrit
+      tags: config
+      gce:
+        instance_names: ef-build-docker0,ef-build-docker1
+        zone: "{{ egcp_zone }}"
+        machine_type: g1-small
+        image: centos-7-v20181011
+        state: present
+        service_account_email: "{{ service_account_email }}"
+        credentials_file: "{{ credentials_file }}"
+        project_id: "{{ project_id }}"
+        tags: web-808x
+        metadata : '{ "startup-script":"yum -y update", "sshKeys":"jagular_spb:ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCiyEXyO9R5SUQIRq6tCge5rLitw+LdJME8FLsmd6vtcKxGs4i5bI/SgLIEjs04ZZ4aKApGYrIotShEtUcC5trBjNqoAuzyKGHitt8YYz4KG61FBIQMpoM3McqNIr0xqfk+UR7SN5Lj+YiOtxIVxOMDFaOD7mMjS+4YNmzLzr06TmQsXJbIZrTZVN5xaeg2lYSWRspZq3cZX9a4OtY+FcCDxj27WrCfebZQYawE5RYcrM6Bp9GwjoXF7gkEFJp54EZ08yFnk+1ZbPasn2h5Lx7T53iG5v3i0Cpn4BSkvAkoSe7yYm0gs/fGNILtpT/9RDqhs/RBCeaMsqlySfQud/MJ jagular_spb"}'
+  
+    - name: collect active instances
+      tags: all
+      gce:
+        instance_names: "{{ ef_build_instances }}"
+        zone: "{{ egcp_zone }}"
+        state: active
+        service_account_email: "{{ service_account_email }}"
+        credentials_file: "{{ credentials_file }}"
+        project_id: "{{ project_id }}"
+      register: gce_build
+
+    - name: Save host data
+      tags: all
+      add_host:
+        hostname: "{{ item.name }}"
+        ansible_ssh_host: "{{ item.public_ip }}"
+        groupname: build
+        ansible_ssh_user: jagular_spb
+        ansible_ssh_private_key_file: "~/.ssh/id_ef_gd"
+        ansible_paramiko_host_key_checking: false
+      with_items: "{{ gce_build.instance_data }}"
+  
+#    - name: Create FW Rule
+#      tags: config
+#      gce_net:
+#       credentials_file: "{{ credentials_file }}"      
+#       service_account_email: "{{ service_account_email }}"
+#       pem_file: "{{ credentials_file }}"
+#       project_id: "{{ project_id }}"
+#       name: default
+#       fwname: firewall1
+#       allowed: tcp:8080,8081
+#       state: present
+#       target_tags: web-docker
+
+##
+- name: Configure Docker
+  tags: build
+  hosts: ef-build-docker0,ef-build-docker1
+  become: yes
+  become_method: sudo
+  gather_facts: no  
+  roles:
+  - common
+  - docker

@@ -1,0 +1,12 @@
+---
+
+- name: docker firewalld
+  import_tasks: docker_fw.yml
+
+- name: docker yum
+  import_tasks: docker_yum.yml
+
+- name: docker configure
+  import_tasks: docker_configure.yml
+
+

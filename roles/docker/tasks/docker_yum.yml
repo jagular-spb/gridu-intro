@@ -1,0 +1,16 @@
+---
+
+   
+- name: Docker Yum
+  yum:
+   state: present
+   name: docker
+   update_cache: no
+
+- name: Docker enabled
+  service:
+   name: docker
+   enabled: yes
+   state: started
+
+

@@ -1,0 +1,8 @@
+---
+- name: Docker Firewalld
+  firewalld:
+   port: 2376/tcp
+   permanent: true
+   immediate: yes
+   state: enabled
+
