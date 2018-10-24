@@ -82,7 +82,6 @@
        state: present
        target_tags: web-808x
 
-
 ##
 - name: Configure Jenkins
   tags: jenkins
@@ -114,40 +113,3 @@
   roles:
   - common
   - nexus
-
-- name: Play with inmemory-inventory
-  hosts: deploy
-  become: yes
-  become_method: sudo
-  gather_facts: no
-  roles:
-   - common
-   - deployment
-   - web
-   
-  tasks:
-    - name: cleanup stage 0
-      file:
-       state: absent
-       path: "/tmp/project"
-
-    - name: Git colne repo  
-      become: yes
-      become_user: "{{user_name_to_add}}"
-      git:
-       repo: "{{mvn_repo_url}}"
-       dest: "/tmp/project"
-       clone: yes
-       update: yes
-       version: "{{mvn_repo_branch}}"
-
-    - name: Mvn validate
-      become: yes
-      become_user: "{{user_name_to_add}}"
-      command: "mvn -f /tmp/project/main-app/pom.xml clean validate"
-
-    - name: Mvn deploy
-      become: yes
-      become_user: "{{user_name_to_add}}"
-      command: "mvn -f /tmp/project/main-app/pom.xml clean deploy"
-
