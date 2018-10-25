@@ -1,5 +1,5 @@
 {
     "hosts": ["unix:///var/run/docker.sock", "tcp://0.0.0.0:2376"],
-    "insecure-registries" : [ "nexus.7579433.ru:5000" ]
+    "insecure-registries" : [ "ef-rel-nexus0.europe-north1-a.c.ef-tf-compute.internal:5000" ]
 }
 

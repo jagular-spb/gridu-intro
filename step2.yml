@@ -4,27 +4,6 @@
     ef_build_instances: ef-build-docker0,ef-build-docker1
     
   tasks:
-    - name: create docker
-      tags: config
-      gce:
-        instance_names: ef-build-docker0,ef-build-docker1
-        zone: "{{ egcp_zone }}"
-        machine_type: g1-small
-        image: centos-7-v20181011
-        state: present
-        service_account_email: "{{ service_account_email }}"
-        credentials_file: "{{ credentials_file }}"
-        project_id: "{{ project_id }}"
-        tags: web-docker
-        metadata : '{ "sshKeys":"{{gce_sshKeys}}"}'
-      register: gce_docker
-
-    - name: Throttle
-      wait_for_connection:
-       delay: 60
-       sleep: 5
-       timeout: 300
-      when: gce_docker.changed
 
     - name: collect active instances
       tags: all
@@ -57,6 +36,4 @@
   become_method: sudo
   gather_facts: no  
   roles:
-  - common
-  - docker
   - swarm

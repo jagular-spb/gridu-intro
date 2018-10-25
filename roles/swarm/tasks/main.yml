@@ -1,0 +1,6 @@
+---
+
+- name: swarm init
+  import_tasks: swarm_init.yml
+  
+

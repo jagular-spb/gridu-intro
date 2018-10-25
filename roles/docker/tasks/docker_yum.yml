@@ -1,5 +1,6 @@
 ---
 
+
 - name: Docker Yum
   yum:
    state: present
@@ -12,4 +13,11 @@
    enabled: yes
    state: started
 
+- name: Python2 pip
+  yum:
+   state: present
+   name: python2-pip
+   update_cache: no
 
+- name: Python2 docker
+  shell: "pip install docker"
