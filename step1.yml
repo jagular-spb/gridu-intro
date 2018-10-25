@@ -59,4 +59,3 @@
   roles:
   - common
   - docker
-  - swarm
